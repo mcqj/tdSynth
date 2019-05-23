@@ -10,10 +10,4 @@ function profile() {
   };
 }
 
-profiles = [];
-
-for(let i = 0; i < process.argv[2]; i++) {
-  profiles.push(profile());
-}
-
-console.log(profiles);
+module.exports = profile;

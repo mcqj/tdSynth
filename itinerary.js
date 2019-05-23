@@ -3,13 +3,16 @@ faker.locale = "en_IE";
 
 const MS_DAY = 1000 * 60 * 60 * 24;
 
-function itinerary() {
+function itinerary({name = 'john', email = 'john@exampl.com'} = {}) {
   let departureDate = getDepartureDate();
   return {
+    name: name || faker.name.findName(),
+    email: email || faker.iternet.email(),
     origin: faker.airport.iataCode(),
     dest: faker.airport.iataCode(),
     depDate: departureDate,
-    rtnDate: getReturnDate(departureDate)
+    rtnDate: getReturnDate(departureDate),
+    image: faker.image.imageUrl(400, 400, 'travel', 'aircraft'),
   };
 }
 
@@ -43,11 +46,4 @@ function getReturnDate(depDate) {
 const Airport = require('./airport');
 faker.airport = new Airport(faker);
 
-itineraries = [];
-
-for(let i = 0; i < process.argv[2]; i++) {
-  itineraries.push(itinerary());
-}
-
-console.log(itineraries);
-
+module.exports = itinerary;
